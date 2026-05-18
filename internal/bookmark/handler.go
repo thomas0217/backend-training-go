@@ -70,7 +70,9 @@ func (h *Handler) List(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(resp)
+	if err := json.NewEncoder(w).Encode(resp); err != nil {
+		h.logger.Error("Failed to encode response", zap.Error(err))
+	}
 }
 
 // switch between marked/ unmarked
@@ -100,7 +102,9 @@ func (h *Handler) Toggle(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(map[string]bool{"bookmarked": bookmarked})
+	if err := json.NewEncoder(w).Encode(map[string]bool{"bookmarked": bookmarked}); err != nil {
+		h.logger.Error("Failed to encode response", zap.Error(err))
+	}
 }
 
 func (h *Handler) CountByUserID(w http.ResponseWriter, r *http.Request) {

@@ -8,7 +8,9 @@ import (
 	"go.uber.org/zap"
 )
 
-const UserContextKey = "user-id"
+type contextKey string
+
+const UserContextKey contextKey = "user-id"
 
 type UserValidator interface {
 	Exists(ctx context.Context, id uuid.UUID) (bool, error)
