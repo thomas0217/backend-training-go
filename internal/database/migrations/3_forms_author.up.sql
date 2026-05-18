@@ -1,0 +1,1 @@
+ALTER TABLE forms ADD COLUMN author_id UUID REFERENCES users(id);
