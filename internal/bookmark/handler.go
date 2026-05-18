@@ -122,7 +122,10 @@ func (h *Handler) CountByUserID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(map[string]int64{"count": count})
+
+	if err := json.NewEncoder(w).Encode(map[string]int64{"count": count}); err != nil {
+		h.logger.Error("Failed to encode response", zap.Error(err))
+	}
 }
 
 func (h *Handler) CountByFormID(w http.ResponseWriter, r *http.Request) {
@@ -141,5 +144,7 @@ func (h *Handler) CountByFormID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(map[string]int64{"count": count})
+	if err := json.NewEncoder(w).Encode(map[string]int64{"count": count}); err != nil {
+		h.logger.Error("Failed to encode response", zap.Error(err))
+	}
 }
