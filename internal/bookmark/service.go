@@ -34,7 +34,6 @@ func NewServiceWithQuery(logger *zap.Logger, q Query) *Service {
 	}
 }
 
-
 func (s Service) CountByFormID(ctx context.Context, formID uuid.UUID) (int64, error) {
 	count, err := s.queries.CountByFormID(ctx, formID)
 	if err != nil {
